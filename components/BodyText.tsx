@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { Text, StyleSheet, TextStyle, ColorValue } from 'react-native';
+import { Text, StyleSheet, TextStyle, ColorValue, Dimensions } from 'react-native';
 
 interface BodyTextProps {
   style?: TextStyle;
@@ -16,6 +16,6 @@ export const BodyText: React.FC<BodyTextProps> = ({ style, color, children }) =>
 const styles = StyleSheet.create({
   textStyle: {
     fontFamily: 'OpenSans_400Regular',
-    fontSize: 18
+    fontSize: Dimensions.get('window').height / 32,
   }
 });

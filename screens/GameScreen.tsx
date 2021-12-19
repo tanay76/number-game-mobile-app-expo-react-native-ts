@@ -30,17 +30,18 @@ export const GameScreen: React.FC<GameScreenProps> = ({
   userChoice,
   onGameOver,
 }) => {
-  const [currentGuess, setCurrentGuess] = useState<number>(
-    generateRandomBetween(1, 100, userChoice)
-  );
-  const [rounds, setRounds] = useState<number>(0);
+  const initialGuess = generateRandomBetween(1, 100, userChoice);
+  const [currentGuess, setCurrentGuess] = useState<number>(initialGuess);
+  const [guessList, setGuessList] = useState<number[]>([initialGuess]);
+  const [minNumList, setMinNumList] = useState<number[]>([0]);
+  const [maxNumList, setMaxNumList] = useState<number[]>([100]);
 
-  const currentLow = useRef(1);
-  const currentHigh = useRef(100);
+  // const currentLow = useRef(1);
+  // const currentHigh = useRef(100);
 
   useEffect(() => {
     if (currentGuess === userChoice) {
-      onGameOver(rounds);
+      onGameOver(guessList.length);
     }
   }, [currentGuess, userChoice, onGameOver]);
 
@@ -54,18 +55,24 @@ export const GameScreen: React.FC<GameScreenProps> = ({
       ]);
       return;
     }
+    let maxNum: number;
+    let minNum: number;
     if (direction === "lower") {
-      currentHigh.current = currentGuess;
+      setMaxNumList(curList => [...curList, currentGuess]);
+      maxNum = Math.min(...maxNumList, currentGuess);
+      minNum = Math.max(...minNumList);
     } else {
-      currentLow.current = currentGuess;
+      setMinNumList(curList => [...curList, currentGuess]);
+      minNum = Math.max(...minNumList, currentGuess);
+      maxNum = Math.min(...maxNumList);
     }
     const nextRndNum = generateRandomBetween(
-      currentLow.current,
-      currentHigh.current,
+      minNum,
+      maxNum,
       currentGuess
     );
     setCurrentGuess(nextRndNum);
-    setRounds((curRounds) => curRounds + 1);
+    setGuessList(curList => [nextRndNum, ...curList]);
   };
 
   return (

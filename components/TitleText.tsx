@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { Text, StyleSheet, TextStyle, ColorValue } from 'react-native';
+import { Text, StyleSheet, TextStyle, ColorValue, Dimensions } from 'react-native';
 
 interface TitleTextProps {
   style?: TextStyle;
@@ -16,6 +16,6 @@ export const TitleText: React.FC<TitleTextProps> = ({ style, color, children }) 
 const styles = StyleSheet.create({
   textStyle: {
     fontFamily: 'OpenSans_700Bold',
-    fontSize: 22
+    fontSize: Dimensions.get('window').height / 28,
   }
 });
