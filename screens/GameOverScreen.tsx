@@ -29,7 +29,7 @@ export const GameOverScreen: React.FC<GameOverScreenProps> = ({
         <BodyText style={styles.bodyText}>
           Your phone has taken
           <TitleText color={Color.primary}>{roundsTaken}</TitleText> rounds to
-          get the chosen number{" "}
+          get the chosen number
           <TitleText color={Color.primary}>{number}</TitleText>.
         </BodyText>
         <View style={styles.buttonContainer}>
